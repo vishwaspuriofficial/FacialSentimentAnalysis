@@ -3,7 +3,7 @@ import mediapipe as mp
 import cv2
 from deepface import DeepFace
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-# st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 
 from streamlit_webrtc import (
     AudioProcessorBase,
