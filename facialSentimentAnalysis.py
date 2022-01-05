@@ -21,8 +21,7 @@ import av
 RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
 )
-st.write("Press start to turn on Camera!")
-st.write("If camera doesn't turn on, click the select device button, change the camera input and reload your screen!")
+st.write("Press start to turn on camera and start making your facial sentiments!")
 
 def handDetector():
     class OpenCVVideoProcessor(VideoProcessorBase):
@@ -56,6 +55,16 @@ def handDetector():
             "autoPlay": True,
         },
     )
+
+    # Info Block
+    st.write("If camera doesn't turn on, please ensure that your camera permissions are on!")
+    with st.expander("Steps to enable permission"):
+        st.write("1. Click the lock button at the top left of the page")
+        st.write("2. Slide the camera slider to on")
+        st.write("3. Reload your page!")
+
+    st.subheader("Possible Output Emotions:")
+    st.image("testimonials.jpg")
 
 if __name__ == "__main__":
     handDetector()
