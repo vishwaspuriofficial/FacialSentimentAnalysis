@@ -61,8 +61,8 @@ def facialSentimentAnalysis():
         st.write("2. Slide the camera slider to on")
         st.write("3. Reload your page!")
 
-    # st.subheader("Possible Output Emotions:")
-    # st.image("testimonials.jpg")
+    st.subheader("Possible Output Emotions:")
+    st.image("testimonials.jpg")
 
 if __name__ == "__main__":
     facialSentimentAnalysis()
