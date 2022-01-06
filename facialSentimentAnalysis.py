@@ -1,9 +1,9 @@
 import streamlit as st
-import mediapipe as mp
 import cv2
+st.set_page_config(layout="wide")
+col = st.empty()
 from deepface import DeepFace
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-st.set_page_config(layout="wide")
 
 from streamlit_webrtc import (
     AudioProcessorBase,
@@ -23,10 +23,8 @@ RTC_CONFIGURATION = RTCConfiguration(
 )
 st.write("Press start to turn on camera and start making your facial sentiments!")
 
-def handDetector():
+def facialSentimentAnalysis():
     class OpenCVVideoProcessor(VideoProcessorBase):
-
-
         def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
             img = frame.to_ndarray(format="bgr24")
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -50,7 +48,7 @@ def handDetector():
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True,
         video_html_attrs={
-            "style": {"margin": "0 100", "border": "5px yellow solid"},
+            "style": {"margin": "0 auto", "border": "5px yellow solid"},
             "controls": False,
             "autoPlay": True,
         },
@@ -67,4 +65,4 @@ def handDetector():
     st.image("testimonials.jpg")
 
 if __name__ == "__main__":
-    handDetector()
+    facialSentimentAnalysis()
