@@ -1,7 +1,13 @@
+#Title: FACIAL SENTIMENT ANALYSIS
+#Developer: Vishwas Puri
+#Purpose: A program that detects your facial sentiment/expression from multiple types of emotions categorized in a pre-trained data set.
+
+#This program is made using python supported by streamlit.
 import streamlit as st
 import cv2
 st.set_page_config(layout="wide")
 col = st.empty()
+#library to get facial characteristics to determine emotions
 from deepface import DeepFace
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
@@ -27,10 +33,15 @@ def facialSentimentAnalysis():
     class OpenCVVideoProcessor(VideoProcessorBase):
         def recv(self, frame: av.VideoFrame) -> av.VideoFrame:
             img = frame.to_ndarray(format="bgr24")
+            # converting image to bgra
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
+            #detecting faces in the image
             faces = faceCascade.detectMultiScale(gray, 1.1, 4)
+            #highlighting the face with a rectangle around it
             cv2.rectangle(img, pt1=(0, 0), pt2=(700, 80), color=(0, 0, 0), thickness=-1)
             try:
+                #analyzes the emotion of the face
+                #writes the emotion on the image
                 predictions = DeepFace.analyze(img, actions=['emotion'])
                 for (x, y, w, h) in faces:
                     cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
@@ -39,7 +50,7 @@ def facialSentimentAnalysis():
                 cv2.putText(img, "No Face Detected!", (20, 50), cv2.FONT_HERSHEY_DUPLEX, 1, 255)
             return av.VideoFrame.from_ndarray(img, format="bgr24")
 
-
+    # setting up streamlit camera configuration
     webrtc_ctx = webrtc_streamer(
         key="opencv-filter",
         mode=WebRtcMode.SENDRECV,
